@@ -8,9 +8,8 @@ public class Package implements Product  {
 	private int id;
 	private ArrayList<CarPart> carParts;
 	
-	public Package(String type, int id, ArrayList<CarPart> carParts) {
+	public Package(String type, ArrayList<CarPart> carParts) {
 		this.type = type;
-		this.id = id;
 		this.carParts = carParts;
 	}
 

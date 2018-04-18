@@ -8,9 +8,8 @@ public class System implements Product {
 	private int id;
 	private ArrayList<CarPart> carParts;
 	
-	public System(String carModel, int id, ArrayList<CarPart> carParts) {
+	public System(String carModel, ArrayList<CarPart> carParts) {
 		this.carModel = carModel;
-		this.id = id;
 		this.carParts = carParts;
 	}
 

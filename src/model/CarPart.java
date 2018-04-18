@@ -6,8 +6,7 @@ public class CarPart {
 	private String chassisNo;
 	private String type;
 	
-	public CarPart(int id, String chassisNo, double weight, String type) {
-		this.id = id;
+	public CarPart(String chassisNo, double weight, String type) {
 		this.weight = weight;
 		this.type = type;
 		this.chassisNo = chassisNo;

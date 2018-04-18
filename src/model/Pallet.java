@@ -12,8 +12,7 @@ public class Pallet {
 	private double capacity;
 	private Map<String, List<CarPart>> carParts;
 	
-	public Pallet(int id, String type, double capacity) {
-		this.id = id;
+	public Pallet(String type, double capacity) {
 		this.type = type;
 		this.capacity = capacity;
 		this.carParts = new HashMap<String, List<CarPart>>();
