@@ -1,16 +1,17 @@
+package model;
 public class CarPart {
 
 	private int id;
-
 	private double weight;
-
 	private String chassisNo;
-
 	private String type;
-
-	private Car car;
-
-	private Pallet pallet;
+	
+	public CarPart(int id, String chassisNo, double weight, String type) {
+		this.id = id;
+		this.weight = weight;
+		this.type = type;
+		this.chassisNo = chassisNo;
+	}
 
 	public int getId() {
 		return id;
