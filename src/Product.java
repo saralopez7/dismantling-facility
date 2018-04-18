@@ -1,15 +1,16 @@
-public class Product extends Package, System {
+
+public class Product extends Package {
 
 	private int id;
 
 	private Pallet pallet;
 
 	public int getId() {
-		return 0;
+		return id;
 	}
 
 	public void setId(int id) {
-
+		this.id = id;
 	}
 
 }

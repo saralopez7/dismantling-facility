@@ -4,7 +4,7 @@ public class Pallet {
 
 	private int id;
 
-	private string type;
+	private String type;
 
 	private double capacity;
 
@@ -13,27 +13,28 @@ public class Pallet {
 	private Collection<Product> product;
 
 	public int getId() {
-		return 0;
+		return id;
 	}
 
 	public double getCapacity() {
-		return 0;
+		return capacity;
 	}
 
-	public string getType() {
-		return null;
+	public String getType() {
+		return type;
 	}
 
 	public void setId(int id) {
+		this.id = id;
 
 	}
 
-	public void setType(string type) {
-
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public void setCapacity(double capacity) {
-
+		this.capacity = capacity;
 	}
 
 }
