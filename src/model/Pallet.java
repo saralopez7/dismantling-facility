@@ -18,6 +18,11 @@ public class Pallet {
 		this.carParts = new HashMap<String, List<CarPart>>();
 	}
 
+	/**
+	 * Needed deserializing object from entity stream on HTTP request
+	 */
+	public Pallet() {}
+	
 	public int getId() {
 		return id;
 	}

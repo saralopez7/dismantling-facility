@@ -12,6 +12,11 @@ public class CarPart {
 		this.chassisNo = chassisNo;
 	}
 
+	/**
+	 * Needed deserializing object from entity stream on HTTP request
+	 */
+	public CarPart() {}
+	
 	public int getId() {
 		return id;
 	}

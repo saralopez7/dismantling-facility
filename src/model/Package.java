@@ -13,6 +13,11 @@ public class Package implements Product  {
 		this.carParts = carParts;
 	}
 
+	/**
+	 * Needed deserializing object from entity stream on HTTP request
+	 */
+	public Package() {}
+	
 	public String getPartType() {
 		return type;
 	}

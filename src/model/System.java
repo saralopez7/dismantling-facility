@@ -13,6 +13,11 @@ public class System implements Product {
 		this.carParts = carParts;
 	}
 
+	/**
+	 * Needed deserializing object from entity stream on HTTP request
+	 */
+	public System() {}
+	
 	public String getCarModel() {
 		return carModel;
 	}
