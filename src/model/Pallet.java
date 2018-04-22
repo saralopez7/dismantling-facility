@@ -10,7 +10,8 @@ public class Pallet {
 	private double capacity;
 	private List<CarPart> carParts;
 	
-	public Pallet(String type, double capacity) {
+	public Pallet(int id, String type, double capacity) {
+		this.id = id;
 		this.type = type;
 		this.capacity = capacity;
 		this.carParts = new ArrayList<CarPart>();
