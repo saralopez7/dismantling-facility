@@ -1,4 +1,5 @@
 package model;
+
 public class CarPart {
 
 	private int id;
@@ -6,11 +7,28 @@ public class CarPart {
 	private String chassisNo;
 	private String type;
 	
-	public CarPart(String chassisNo, double weight, String type) {
+	/**
+	 * Constructor used on POST request to create a car part.
+	 * @param id
+	 * @param chassisNo
+	 * @param weight
+	 * @param type
+	 */
+	public CarPart(int id, String chassisNo, double weight, String type) {
+		this.id = id;
 		this.weight = weight;
 		this.type = type;
 		this.chassisNo = chassisNo;
 	}
+	
+	/**
+	 * Constructor used for GET request : Get car part by id.
+	 * @param id
+	 */
+	public CarPart(int id) {
+		this.id = id;
+	}
+	
 
 	/**
 	 * Needed deserializing object from entity stream on HTTP request
