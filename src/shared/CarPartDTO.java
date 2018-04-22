@@ -1,39 +1,37 @@
-package model;
+package shared;
 
-public class CarPart {
-
+public class CarPartDTO {
+	
 	private int id;
 	private double weight;
 	private String chassisNo;
 	private String type;
 	
 	/**
-	 * Constructor used on POST request to create a car part.
+	 * Used for GET requests.
 	 * @param id
 	 * @param chassisNo
 	 * @param weight
 	 * @param type
 	 */
-	public CarPart(int id, String chassisNo, double weight, String type) {
+	public CarPartDTO(int id, String chassisNo, double weight, String type) {
 		this.id = id;
 		this.weight = weight;
 		this.type = type;
 		this.chassisNo = chassisNo;
 	}
-	
-	/**
-	 * Constructor used for GET request : Get car part by id.
-	 * @param id
-	 */
-	public CarPart(int id) {
-		this.id = id;
-	}
-	
 
 	/**
-	 * Needed deserializing object from entity stream on HTTP request
+	 * Used for POST and PUT requests.
+	 * @param chassisNo
+	 * @param weight
+	 * @param type
 	 */
-	public CarPart() {}
+	public CarPartDTO(String chassisNo, double weight, String type) {
+		this.weight = weight;
+		this.type = type;
+		this.chassisNo = chassisNo;
+	}
 	
 	public int getId() {
 		return id;

@@ -1,27 +1,39 @@
-package model;
+package shared;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Pallet {
+public class PalletDTO {
 
 	private int id;
 	private String type;
 	private double capacity;
-	private List<CarPart> carParts;
+	private List<CarPartDTO> carParts;
 	
-	public Pallet(int id, String type, double capacity) {
+	/**
+	 * Used for GET, POST and PUT requests.
+	 * @param id
+	 * @param type
+	 * @param capacity
+	 */
+	public PalletDTO(int id, String type, double capacity) {
 		this.id = id;
 		this.type = type;
 		this.capacity = capacity;
-		this.carParts = new ArrayList<CarPart>();
+		this.carParts = new ArrayList<CarPartDTO>();
+	}
+	
+	/**
+	 * Used for POST requests.
+	 * @param type
+	 * @param capacity
+	 */
+	public PalletDTO(String type, double capacity) {
+		this.type = type;
+		this.capacity = capacity;
+		this.carParts = new ArrayList<CarPartDTO>();
 	}
 
-	/**
-	 * Needed deserializing object from entity stream on HTTP request
-	 */
-	public Pallet() {}
-	
 	public int getId() {
 		return id;
 	}
@@ -34,7 +46,7 @@ public class Pallet {
 		return type;
 	}
 
-	public List<CarPart> getCarParts() {
+	public List<CarPartDTO> getCarParts() {
 		return carParts;
 	}
 	
@@ -54,8 +66,8 @@ public class Pallet {
 	 * Used when reading pallets from the database.
 	 * @param carPart
 	 */
-	public void addCarPart(CarPart carPart) {
+	public void addCarPart(CarPartDTO carPart) {
 		carParts.add(carPart);
 	}
-
+	
 }
