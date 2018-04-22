@@ -1,0 +1,51 @@
+﻿<Window x:Class="DismantleStationClient.Views.ClientView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:DismantleStationClient.Views"
+      mc:Ignorable="d"
+      WindowStyle="ToolWindow" ResizeMode="CanResize" WindowState="Maximized"
+      Title="Dismantle Station Client">
+    <ScrollViewer HorizontalScrollBarVisibility="Auto">
+
+        <Grid  HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="auto" MinWidth="100" />
+                <ColumnDefinition Width="auto" MinWidth="120" />
+                <ColumnDefinition Width="auto"  MinWidth="70" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="20" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition Height="auto" MinHeight="30" />
+                <RowDefinition Height="auto" MinHeight="10" />
+                <RowDefinition Height="auto" MinHeight="30" />
+                <RowDefinition Height="auto" MinHeight="30" />
+                <RowDefinition Height="auto" MinHeight="30" />
+                <RowDefinition Height="auto" MinHeight="30" />
+                <RowDefinition Height="auto" MinHeight="30" />
+                <RowDefinition Height="auto" MinHeight="30" />
+                <RowDefinition Height="auto" MinHeight="30" />
+
+                <RowDefinition Height="20" />
+            </Grid.RowDefinitions>
+
+            <ComboBox Grid.Row="1" Grid.Column="1" x:Name="RequestMethods" SelectedItem="{Binding Path=SelectedRequestMethod, Mode=OneWayToSource}" />
+            <TextBox  Grid.Row="1" Grid.Column="2" x:Name="Uri" MinWidth="550" Margin="0 0 10 0" />
+            <Button Grid.Row="1" Grid.Column="3" x:Name="Send" Content="Send" />
+            <TextBlock x:Name="Message" Grid.Row="3" Grid.Column="1"  Grid.RowSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Body" />
+
+            <TextBox x:Name="Body" Grid.Row="3" Grid.RowSpan="4" Grid.Column="2" Grid.ColumnSpan="3" Margin="10 0 0 10" AcceptsReturn="True" />
+
+            <TextBlock x:Name="Response" Grid.Row="7" Grid.Column="1" Grid.RowSpan="4" TextWrapping="Wrap" Text="Server Response"
+                   VerticalAlignment="Center" HorizontalAlignment="Center" />
+
+            <TextBox x:Name="JsonResponse" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="4" Margin="10 0 0 10"
+                 IsReadOnly="True" />
+        </Grid>
+    </ScrollViewer>
+</Window>
