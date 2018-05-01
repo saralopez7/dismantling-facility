@@ -14,9 +14,9 @@
                 <ColumnDefinition Width="20" />
                 <ColumnDefinition Width="auto" MinWidth="100" />
                 <ColumnDefinition Width="auto" MinWidth="120" />
-                <ColumnDefinition Width="auto"  MinWidth="70" />
+                <ColumnDefinition Width="auto" MinWidth="70" />
                 <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" MinWidth="200"/>
                 <ColumnDefinition Width="20" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -46,6 +46,12 @@
 
             <TextBox x:Name="JsonResponse" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="4" Margin="10 0 0 10"
                  IsReadOnly="True" />
+              
+              <TextBlock x:Name="Notification" Grid.Row="1" Grid.Column="5" Text="Notifications"
+                       VerticalAlignment="Center" HorizontalAlignment="Center" />
+
+            <TextBox x:Name="Notifications" Grid.Row="2" Grid.Column="5" Grid.RowSpan="10" Margin="10 0 0 10"
+                     IsReadOnly="True" />
         </Grid>
     </ScrollViewer>
 </Window>
