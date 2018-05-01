@@ -15,12 +15,16 @@ namespace DismantleStationClient.ViewModels
         private string _selectedRequestMethod;
         private string _jsonResponse;
         private string _body;
+        private string _notifications;
 
         public ClientViewModel()
         {
             RequestMethods.Add(WebRequestMethods.Http.Get);
             RequestMethods.Add(WebRequestMethods.Http.Post);
             RequestMethods.Add(WebRequestMethods.Http.Put);
+            
+            var thread = new Thread(GetNotifications) { IsBackground = true };
+            thread.Start();
         }
 
         public string RequestMethod
@@ -74,6 +78,16 @@ namespace DismantleStationClient.ViewModels
                 NotifyOfPropertyChange(() => Body);
             }
         }
+        
+        public string Notifications
+        {
+            get => _notifications;
+            set
+            {
+                _notifications = value;
+                NotifyOfPropertyChange(() => Notifications);
+            }
+        }
 
         public void Send(Uri uri, string requestMethods)
         {
@@ -125,6 +139,42 @@ namespace DismantleStationClient.ViewModels
         public bool CanSend(Uri uri, string requestMethods)
         {
             return !string.IsNullOrEmpty(uri.ToString()) && !string.IsNullOrEmpty(requestMethods);
+        }
+        
+        public void GetNotifications()
+        {
+            try
+            {
+                while (true)
+                {
+                    var request = WebRequest.Create("http://localhost:8080/DismantleStation/server/notifications");
+                    request.Method = WebRequestMethods.Http.Get;
+
+                    var response = request.GetResponse();
+
+                    var dataStream = response.GetResponseStream();
+
+                    if (dataStream == null)
+                    {
+                        return;
+                    }
+
+                    var reader = new StreamReader(dataStream);
+
+                    var responseFromServer = reader.ReadToEnd();
+
+                    if (!string.IsNullOrEmpty(responseFromServer))
+                    {
+                        var jsonResponse = JsonConvert.DeserializeObject(responseFromServer);
+                        Notifications = jsonResponse.ToString();
+                    }
+                    Task.Delay(60000);
+                }
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
         }
     }
 }
