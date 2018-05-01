@@ -45,7 +45,7 @@ public class RegisterStationClient {
 					
 					System.out.println("The following car has been added to the Database: ");
 					
-					carRegStation.getCar(chassisNo).toString();
+					System.out.print(carRegStation.getCar(chassisNo).printCar());
 					break;
 					
 				case "2":
