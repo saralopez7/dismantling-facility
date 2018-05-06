@@ -224,7 +224,7 @@ public class RemoteDismantleStationBase implements DismantleStationBase {
 	public Response getNotification() {
 		ArrayList<Car> newCars = cars;
 		cars.clear();
-		return cars.size() > 0 ? Response.status(200).entity(newCars).build() :  Response.status(204).build();
+		return newCars.size() > 0 ? Response.status(200).entity(newCars).build() :  Response.status(204).build();
 	}
 
 }
