@@ -4,7 +4,7 @@ import java.util.Collection;
 
 public interface CarPartDAO {
 	CarPartDTO createCarPart(String chassisNo, double weight, String type);
-	Collection<CarPartDTO> readCarParts(String chassisNo, String type);
+	Collection<CarPartDTO> readCarParts(String chassisNo, String type, int number);
 	CarPartDTO readCarPart(int id);
 	void updateCarPart(CarPartDTO carPart);
 }
