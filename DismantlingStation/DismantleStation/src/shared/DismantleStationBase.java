@@ -1,9 +1,11 @@
 package shared;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 import javax.ws.rs.core.Response;
 
+import model.Car;
 import model.CarPart;
 import model.Pallet;
 
@@ -38,7 +40,7 @@ public interface DismantleStationBase {
 		 * Get all car parts: http://localhost:8080/DismantleStation/server/parts
 	 * @return list of car parts.
 	 */
-	List<CarPart> getAllCarParts(String chassisNo, String type, String model) throws RemoteException ;
+	Response getAllCarParts(String chassisNo, String type, String number, String model) throws RemoteException ;
 
 	
 	/**
@@ -75,5 +77,9 @@ public interface DismantleStationBase {
 	 * @return list of car parts.
 	 */
 	List<Pallet> getAllPallets(String type);
+	
+	Response getNotification();
+	
+	Response postNotification(Car car);
 
 }
