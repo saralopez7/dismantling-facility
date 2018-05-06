@@ -13,7 +13,7 @@ public interface DismantleStationBase {
 	
 	/**
 	 * To Create a car part we need to specify the following parameters in the body of the POST request: 
-	 * id, ChassisNo, weight, type
+	 * ChassisNo, weight, type
 	 * @param carPart
 	 * @return Response with the car part created. 
 	 */
@@ -31,6 +31,8 @@ public interface DismantleStationBase {
 	/**
 	 * @param chassisNo - optional value. Query for parts by chassisNo
 	 * @param type - optional value. Query for parts by type
+	 * @param number - optional value. Limit the number of parts returned.
+	 * @param model - optional value. Get parts by car model. 
 	 * REQUEST FORMAT:
 	 	 * Query for a part by type: http://localhost:8080/DismantleStation/server/parts?type=...
 		 * Query for a part by chasssisNo : 
@@ -45,7 +47,7 @@ public interface DismantleStationBase {
 	
 	/**
 	 * To Create a pallet we need to specify the following parameters in the body of the POST request: 
-	 * id, weight, type
+	 * weight, type
 	 * @param carPart
 	 * @return Response with the pallet created.
 	 */
@@ -54,7 +56,7 @@ public interface DismantleStationBase {
 	/**
 	 * Assign a car part to a pallet.
 	 * To assign a car part we only need to specify only the id in the body of the POST request.
-	 * NOTE: We can specify all the carPart parameters in the body of the POST request but only the id will be used. 
+	 * NOTE: We can specify all the carPart parameters in the body of the PUT request but only the id will be used. 
 	 * @param carPart - only its id.
 	 * @return Response. 
 	 */
