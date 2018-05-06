@@ -45,20 +45,20 @@ public class DatabaseManager implements CarPartDAO, PalletDAO {
 	public CarPartDTO createCarPart(String chassisNo, double weight, String type) {
 		int rows = carPartHelper.executeUpdate("INSERT INTO car_part "
 				+ "(chassisNo, weight, type) VALUES (?, ?, ?)", chassisNo, weight, type);
-		
 		return (rows == 0) ? null : new CarPartDTO(chassisNo, weight, type);
 	}
 
 	@Override
-	public Collection<CarPartDTO> readCarParts(String chassisNo, String type) {
+	public Collection<CarPartDTO> readCarParts(String chassisNo, String type, int number) {
 		if(!chassisNo.equals("") && type.equals("")) {
 			return carPartHelper.map((rs) -> createCarPart(rs), "SELECT * FROM car_part where chassisNo = ?", chassisNo);
-		} else if(chassisNo.equals("") && !type.equals("")) {
-			return carPartHelper.map((rs) -> createCarPart(rs), "SELECT * FROM car_part where type = ?", type);
+		} else if(chassisNo.equals("") && !type.equals("") && number != 0) {
+			return carPartHelper.map((rs) -> createCarPart(rs), "SELECT * FROM car_part where type = ? LIMIT ?", type, number);
 		} else if(!chassisNo.equals("") && !type.equals("")) {
 			return carPartHelper.map((rs) -> createCarPart(rs), "SELECT * FROM car_part where type = ? AND chassisNo = ?",
 					type, chassisNo);
-		}
+		} 
+
 		return carPartHelper.map((rs) -> createCarPart(rs), "SELECT * FROM car_part");
 	}
 
@@ -148,15 +148,23 @@ public class DatabaseManager implements CarPartDAO, PalletDAO {
 	public PalletDTO assignPartToPallet(int id) {
 		CarPartDTO carPart = readCarPart(id);
 		PalletDTO pallet = readPalletByType(carPart.getType());
-		if(pallet == null)
-			pallet = createPallet(carPart.getType(), DEFAULT_CAPACITY); 
+		if(pallet == null) {
+			palletHelper.executeUpdate("INSERT INTO pallet (type, capacity) VALUES (?, ?)", carPart.getType(), DEFAULT_CAPACITY);
+			pallet = readPalletByType(carPart.getType());
+		}
 		
-		palletHelper.executeUpdate("INSERT INTO part_belongs_to_pallet (part_id, pallet_id) VALUES (?, ?)",
+		partsInPalletHelper.executeUpdate("INSERT INTO part_belongs_to_pallet (part_id, pallet_id) VALUES (?, ?)",
 				carPart.getId(), pallet.getId());
 		double currentCapacity = pallet.getCapacity() - carPart.getWeight();
 		palletHelper.executeUpdate("UPDATE pallet SET capacity=? WHERE id = ?", 
 				currentCapacity, pallet.getId());	// update pallet capacity after inserting a car part.
 		return pallet;
+	}
+
+	@Override
+	public PartBellongsToPalletDTO getPartPallet(int partId) {
+		return partsInPalletHelper.mapSingle((rs) -> createpartBelongsToPallet(rs), 
+				"SELECT * FROM part_belongs_to_pallet where part_id = ?", partId);
 	}
 
 }
