@@ -38,7 +38,7 @@ public interface DismantleStationBase {
 		 * Get all car parts: http://localhost:8080/DismantleStation/server/parts
 	 * @return list of car parts.
 	 */
-	List<CarPart> getAllCarParts(String chassisNo, String type);
+	List<CarPart> getAllCarParts(String chassisNo, String type, String model) throws RemoteException ;
 
 	
 	/**
