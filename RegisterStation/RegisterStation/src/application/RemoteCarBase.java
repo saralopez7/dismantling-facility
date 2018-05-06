@@ -56,4 +56,19 @@ public class RemoteCarBase implements CarBase {
 		DAOLocator.getDAO().deleteCar(chassisNo);
 	}
 	
+	@Override
+	public List<ICar> getCarsByModel(String model) throws RemoteException {
+		Collection<CarDTO> allCars = DAOLocator.getDAO().getAllCars();
+		LinkedList<ICar> list = new LinkedList<ICar>();
+		for(CarDTO car : allCars) {
+			if (!cars.containsKey(car.getChassisNo()))
+				cars.put(car.getChassisNo(), new RemoteCar(car));
+			
+			if(car.getModel().equals(model))
+				list.add(cars.get(car.getChassisNo()));
+		}
+		
+		return list;
+	}
+	
 }
