@@ -8,4 +8,5 @@ public interface PalletDAO {
 	void updatePallet(PalletDTO pallet);
 	PalletDTO readPallet(int id);
 	PalletDTO assignPartToPallet(int id);
+	PartBellongsToPalletDTO getPartPallet(int partId);
 }
