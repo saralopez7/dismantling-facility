@@ -66,5 +66,9 @@ public class CarPart {
 	public void setType(String type) {
 		this.type = type;
 	}
-
+    
+    	@Override
+    	public String toString() {
+        	return "id: " + id + ", chassisNo: " + chassisNo + ", type: " + type + ", weight: "  + weight;
+    	}
 }
