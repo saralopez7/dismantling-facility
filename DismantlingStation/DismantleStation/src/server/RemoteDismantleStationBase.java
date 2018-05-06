@@ -59,19 +59,48 @@ public class RemoteDismantleStationBase implements DismantleStationBase {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Override
 	public List<CarPart> getAllCarParts(@DefaultValue("") @QueryParam("chassisNo") String chassisNo, 
-			@DefaultValue("") @QueryParam("type") String type) {
+			@DefaultValue("") @QueryParam("type") String type, 
+			@DefaultValue("") @QueryParam("model") String model) throws RemoteException {
 		
-		Collection<CarPartDTO> carParts = dismantleStationDAOServer.readCarParts(chassisNo, type);
-		LinkedList<CarPart> list = new LinkedList<CarPart>();
+		Collection<CarPartDTO> carParts = new ArrayList<>();
 		
-		for(CarPartDTO carPartDTO: carParts) {
-			CarPart carPart = new CarPart(carPartDTO.getId(), 
-					carPartDTO.getChassisNo(), carPartDTO.getWeight(), carPartDTO.getType());
+		if(!model.equals("")) {
+			List<String> chassisNumbers = getCarByModel(model);
+			for(String chassisNumber : chassisNumbers) {
+				Collection<CarPartDTO> partsByModel = dismantleStationDAOServer.readCarParts(chassisNumber, type);
+				carParts = Stream.of(carParts, partsByModel).flatMap(Collection::stream).collect(Collectors.toList());
+			}
 			
-			list.add(carPart);
+		} else {
+			carParts = dismantleStationDAOServer.readCarParts(chassisNo, type);
 		}
-					
+			LinkedList<CarPart> list = new LinkedList<CarPart>();
+			
+			for(CarPartDTO carPartDTO: carParts) {
+				CarPart carPart = new CarPart(carPartDTO.getId(), 
+						carPartDTO.getChassisNo(), carPartDTO.getWeight(), carPartDTO.getType());
+				
+				list.add(carPart);
+			}
+	
 		return list;
+	}
+	
+	private List<String> getCarByModel(String model) throws RemoteException  {
+		Registry registry = LocateRegistry.getRegistry(1099);
+		List<String> chassisNumbers = new ArrayList<>();
+			try {
+				CarBase carRegStation = 
+						(CarBase) registry.lookup("CarRegisterStation");
+
+				List<ICar> cars = carRegStation.getCarsByModel(model);
+				for(ICar car : cars)
+					chassisNumbers.add(car.getChassisNo());
+			} catch (NotBoundException e) {
+				e.printStackTrace();
+			} 
+	
+		return chassisNumbers;
 	}
 	
 	@POST
